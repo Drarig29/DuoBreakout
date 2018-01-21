@@ -1571,7 +1571,7 @@ function setupMenu() {
   title_x = (canvas_width - getTextWidth("Duo Breakout")) / 2;
 
   //Mise en place des boutons
-  menu_buttons[0] = new Button(size, red_button_colors, "Jouer", "white", 80);
+  menu_buttons[0] = new Button(size, red_button_colors, "Play", "white", 80);
   menu_buttons[0].centerHorizontally(350);
   menu_buttons[0].onClick = function() {
     if (current_level_filename == "Aucun niveau choisi") {
@@ -1585,7 +1585,7 @@ function setupMenu() {
     game.stage = game_stage.GAME;
   };
 
-  menu_buttons[1] = new Button(size, red_button_colors, "Choix du niveau", "white", 50);
+  menu_buttons[1] = new Button(size, red_button_colors, "Choose level", "white", 50);
   menu_buttons[1].centerHorizontally(550);
   menu_buttons[1].onClick = function() {
     //on montre la liste des niveaux
@@ -1624,7 +1624,7 @@ function setupMenuListeners() {
 }
 
 function getAuthors() {
-  return "Auteurs :\n\n" + "Chan Pierre-Louis\n" + "Foessel Erwan\n" + "Girard Corentin";
+  return "Authors:\n\n" + "Chan Pierre-Louis\n" + "Foessel Erwan\n" + "Girard Corentin";
 }
 
 function getScoresList() {
@@ -1652,7 +1652,7 @@ function drawMenu() {
   Rectangle(80, 180, 430, 480, "white");
 
   setFont("Helvetica", 38);
-  Texte(130, 250, "Meilleurs scores :", "white");
+  Texte(130, 250, "Best Scores:", "white");
 
   setFont("Helvetica", 30);
   Texte(130, 330, getScoresList(), "white");
@@ -1724,7 +1724,7 @@ function setupLevelList() {
 
   var x = lv.x + lv.width + 50;
 
-  level_list_buttons[0] = new Button(size, red_button_colors, "Nouveau", "white", 33);
+  level_list_buttons[0] = new Button(size, red_button_colors, "New", "white", 33);
   level_list_buttons[0].x = x;
   level_list_buttons[0].y = 200;
   level_list_buttons[0].onClick = function() {
@@ -1735,7 +1735,7 @@ function setupLevelList() {
     game.stage = game_stage.LEVEL_EDITOR;
   };
 
-  level_list_buttons[1] = new Button(size, red_button_colors, "Choisir", "white", 33);
+  level_list_buttons[1] = new Button(size, red_button_colors, "Choose", "white", 33);
   level_list_buttons[1].x = x;
   level_list_buttons[1].y = 310;
   level_list_buttons[1].onClick = function() {
@@ -1757,7 +1757,7 @@ function setupLevelList() {
     saveConfigFile();
   };
 
-  level_list_buttons[2] = new Button(size, red_button_colors, "Modifier", "white", 33);
+  level_list_buttons[2] = new Button(size, red_button_colors, "Edit", "white", 33);
   level_list_buttons[2].x = x;
   level_list_buttons[2].y = 420;
   level_list_buttons[2].onClick = function() {
@@ -1768,7 +1768,7 @@ function setupLevelList() {
     game.stage = game_stage.LEVEL_EDITOR;
   };
 
-  level_list_buttons[3] = new Button(size, red_button_colors, "Supprimer", "white", 33);
+  level_list_buttons[3] = new Button(size, red_button_colors, "Delete", "white", 33);
   level_list_buttons[3].x = x;
   level_list_buttons[3].y = 530;
   level_list_buttons[3].onClick = function() {
@@ -1796,7 +1796,7 @@ function setupLevelList() {
     setupGridPreview();
   };
 
-  level_list_buttons[4] = new Button(size, red_button_colors, "Retour", "white", 33);
+  level_list_buttons[4] = new Button(size, red_button_colors, "Back", "white", 33);
   level_list_buttons[4].x = 50;
   level_list_buttons[4].y = canvas_height - 130;
   level_list_buttons[4].onClick = function() {
@@ -1856,10 +1856,10 @@ function drawLevelList() {
   drawGridPreview();
 
   setFont("Helvetica", 50);
-  Texte(80, 100, "Liste des niveaux", "white");
+  Texte(80, 100, "Level list", "white");
 
   setFont("Helvetica", 20);
-  Texte(lv.x, lv.y + lv.height + 40, "Niveau actuel : " + current_level_filename + " (" + (lv.indexOf(current_level_filename) + 1) + "/" + lv.list.length + ")", "white");
+  Texte(lv.x, lv.y + lv.height + 40, "Current level: " + current_level_filename + " (" + (lv.indexOf(current_level_filename) + 1) + "/" + lv.list.length + ")", "white");
 
   for (var i = 0; i &lt; level_list_buttons.length; i++) {
     if (level_list_buttons[i].state != btn_state.DOWN) {
@@ -1981,17 +1981,17 @@ function setupLevelEditor() {
   cp.init();
 
   /* Les NumericUpDown pour les valeurs numériques */
-  level_editor_numericsUD[0] = new NumericUpDown("Briques par ligne", red_button_colors);
+  level_editor_numericsUD[0] = new NumericUpDown("Bricks per line", red_button_colors);
   level_editor_numericsUD[0].alignRight(50, 180);
   level_editor_numericsUD[0].setMinMax(1, 20);
   level_editor_numericsUD[0].value = editor_level_config.max_brick_count.x;
 
-  level_editor_numericsUD[1] = new NumericUpDown("Briques par colonne", red_button_colors);
+  level_editor_numericsUD[1] = new NumericUpDown("Bricks per column", red_button_colors);
   level_editor_numericsUD[1].alignRight(50, 280);
   level_editor_numericsUD[1].setMinMax(1, 20);
   level_editor_numericsUD[1].value = editor_level_config.max_brick_count.y;
 
-  level_editor_numericsUD[2] = new NumericUpDown("Vitesse balle", red_button_colors);
+  level_editor_numericsUD[2] = new NumericUpDown("Ball speed", red_button_colors);
   level_editor_numericsUD[2].alignRight(50, 500);
   level_editor_numericsUD[2].setMinMax(5, 15);
   level_editor_numericsUD[2].value = editor_level_config.ball_speed;
@@ -1999,7 +1999,7 @@ function setupLevelEditor() {
     editor_level_config.ball_speed = value;
   };
 
-  level_editor_numericsUD[3] = new NumericUpDown("Longueur raquette", red_button_colors);
+  level_editor_numericsUD[3] = new NumericUpDown("Racket length", red_button_colors);
   level_editor_numericsUD[3].alignRight(50, 600);
   level_editor_numericsUD[3].setMinMax(20, 200);
   level_editor_numericsUD[3].value = editor_level_config.racket_length;
@@ -2071,7 +2071,7 @@ function setupLevelEditor() {
     height: 50
   };
 
-  level_editor_buttons[0] = new Button(size, red_button_colors, "Centrer x", "white", 20);
+  level_editor_buttons[0] = new Button(size, red_button_colors, "Center x", "white", 20);
   level_editor_buttons[0].x = canvas_width - 420;
   level_editor_buttons[0].y = canvas_height - 180;
   level_editor_buttons[0].onClick = function() {
@@ -2086,7 +2086,7 @@ function setupLevelEditor() {
     setAnchorsPosition();
   };
 
-  level_editor_buttons[1] = new Button(size, red_button_colors, "Centrer y", "white", 20);
+  level_editor_buttons[1] = new Button(size, red_button_colors, "Center y", "white", 20);
   level_editor_buttons[1].x = canvas_width - 420;
   level_editor_buttons[1].y = canvas_height - 120;
   level_editor_buttons[1].onClick = function() {
@@ -2106,7 +2106,7 @@ function setupLevelEditor() {
     height: 60
   };
 
-  level_editor_buttons[2] = new Button(size, red_button_colors, "Retour", "white", 25);
+  level_editor_buttons[2] = new Button(size, red_button_colors, "Back", "white", 25);
   level_editor_buttons[2].x = 50;
   level_editor_buttons[2].y = canvas_height - 110;
   level_editor_buttons[2].onClick = function() {
@@ -2115,7 +2115,7 @@ function setupLevelEditor() {
     game.stage = game_stage.LEVEL_LIST;
   };
 
-  level_editor_buttons[3] = new Button(size, red_button_colors, "Valider", "white", 25);
+  level_editor_buttons[3] = new Button(size, red_button_colors, "Apply", "white", 25);
   level_editor_buttons[3].x = canvas_width - 250;
   level_editor_buttons[3].y = 380;
   level_editor_buttons[3].onClick = function() {
@@ -2144,7 +2144,7 @@ function setupLevelEditor() {
     setAnchorsPosition();
   };
 
-  level_editor_buttons[5] = new Button(size, red_button_colors, "Enregistrer", "white", 25);
+  level_editor_buttons[5] = new Button(size, red_button_colors, "Save as", "white", 25);
   level_editor_buttons[5].x = canvas_width - 250;
   level_editor_buttons[5].y = canvas_height - 110;
   level_editor_buttons[5].onClick = function() {
@@ -2203,7 +2203,7 @@ var demo_ball_y, demo_ball_dir = 1,
  demo_ball_max_y = 720;
 
 function drawBallAndRacket() {
-  Texte(60, 370, "Démo :", "black");
+  Texte(60, 370, "Demo:", "black");
 
   DrawImageObject(img_ball, 230, demo_ball_y - 30, 60, 60);
 
@@ -2224,10 +2224,10 @@ function drawLevelEditor() {
   Clear("white");
 
   setFont("Helvetica", 50);
-  Texte(40, 80, "Éditeur de niveau", "black");
+  Texte(40, 80, "Level editor", "black");
 
   setFont("Helvetica", 24);
-  Texte(60, 170, "Commandes pour les briques :\n\n - Clic gauche = ajouter vie\n - Clic molette = appliquer couleur\n - Clic droit = baisser vie\n    (jusqu'à inexistante ou incassable)", "black");
+  Texte(60, 170, "Bricks' commands:\n\n - Left-click = increase life\n - Middle-click = apply color\n - Right click = decrease life\n    (up to non-existent or unbreakable)", "black");
 
   cp.draw();
 
@@ -2268,17 +2268,17 @@ function addInstrucLine(line) {
   if (line_width &gt; max_line_width) max_line_width = line_width;
 }
 
-function setInstruc() {
-  addInstrucLine("Le Joueur 1 contrôle la raquette à gauche de l'écran, avec les touches Z (monter) et S (descendre).\n\n");
-  addInstrucLine("Le Joueur 2 contrôle la raquette à droite de l'écran, avec les touches O (monter) et L (descendre).\n\n");
-  addInstrucLine("Vous remarquerez qu'une des briques est \"spéciale\" : une fois touchée, cette brique va s'ouvrir et dévoiler un mini-jeu.\n\n");
-  addInstrucLine("Dans ce mini-jeu, le Joueur 1 contrôle un vaisseau spatial avec les touches Z (avancer), Q (pivoter à gauche), D (pivoter à droite) et ESPACE (tirer).\n\n");
-  addInstrucLine("Le Joueur 2 contrôle un personnage avec les touches O (haut), K (gauche), L (bas) et M (droite).\n\n");
-  addInstrucLine("Ce personnage est enfermé dans un cercle dont les déplacements sont aléatoires.\n\n");
-  addInstrucLine("Le Joueur 1 (vaisseau) doit sauver le Joueur 2 (enfermé) en tirant sur le cercle.\n\n");
-  addInstrucLine("Quand le cercle est vaincu, la brique est détruite et se referme, et le jeu revient à la normale.\n\n");
-  addInstrucLine("Si vous perdez dans le mini-jeu, la brique se referme mais n'est pas détuite.\n\n");
-  addInstrucLine("Il est impératif de casser toutes les briques pour gagner, donc de gagner le mini-jeu.");
+function setInstruc() {  
+  addInstrucLine("Player 1 controls the racket on the left side of the screen with Z (up) and S (down).\n\n");
+  addInstrucLine("Player 2 controls the racket on the right side of the screen with O (up) and L (down).\n\n");
+  addInstrucLine("You will notice that one of the bricks is \"special\": once touched, this brick will open and reveal a mini-game.\n\n");
+  addInstrucLine("In this mini-game, Player 1 controls a spaceship with Z (go forward), Q (pivot left), D (pivot right) and SPACE (shoot).\n\n");
+  addInstrucLine("Player 2 controls a character with O (up), K (left), L (down) and M (right).\n\n");
+  addInstrucLine("This character is trapped in a circle whose movements are random.\n\n");
+  addInstrucLine("Player 1 (ship) must save Player 2 (trapped) by firing on the circle.\n\n");
+  addInstrucLine("When the circle is defeated, the brick is destroyed and closes, and game returns to normal.\n\n");
+  addInstrucLine("If you lose in the mini-game, the brick closes but is not destroyed.\n\n");
+  addInstrucLine("It is imperative to break all the bricks to win, so win the mini-game.");
 }
 
 function setupInstructions() {
@@ -2316,7 +2316,7 @@ function drawInstructions() {
   Clear("black");
 
   setFont("Helvetica", 40);
-  Texte(instruc_x, 100, "Instructions :", "white");
+  Texte(instruc_x, 100, "Instructions:", "white");
 
   setFont("Helvetica", instruc_size);
   Texte(instruc_x, 180, instruc, "white");
@@ -2952,13 +2952,13 @@ function setupPauseMenu() {
   menu_pause_y = (canvas_height - pause_menu_size.height) / 2;
   pause_text_x = (canvas_width - getTextWidth("Pause")) / 2;
 
-  pause_buttons[0] = new Button(size, white_button_colors, "Reprendre", "black", 38);
+  pause_buttons[0] = new Button(size, white_button_colors, "Continue", "black", 38);
   pause_buttons[0].centerHorizontally(340);
   pause_buttons[0].onClick = function() {
     game.status = game_status.RUNNING;
   };
 
-  pause_buttons[1] = new Button(size, white_button_colors, "Recommencer", "black", 38);
+  pause_buttons[1] = new Button(size, white_button_colors, "Restart", "black", 38);
   pause_buttons[1].centerHorizontally(460);
   pause_buttons[1].onClick = function() {
     setupGame();
@@ -2966,7 +2966,7 @@ function setupPauseMenu() {
     game.status = game_status.RUNNING;
   };
 
-  pause_buttons[2] = new Button(size, white_button_colors, "Retour au menu", "black", 38);
+  pause_buttons[2] = new Button(size, white_button_colors, "Back to menu", "black", 38);
   pause_buttons[2].centerHorizontally(580);
   pause_buttons[2].onClick = function() {
     setupMenuListeners();
