@@ -855,17 +855,17 @@ function saveConfigFile() {
 function getBricksArray(size_x, size_y) {
   var bricks = [];
 
-  for (var i = 0; i &lt; size_y; i++) {
+  for (var i = 0; i < size_y; i++) {
     bricks[i] = [];
   }
 
   //tableaux de 8 * 5 briques rouges, à taper une fois
-  for (var y = 0; y &lt; size_y; y++) {
-    for (var x = 0; x &lt; size_x; x++) {
+  for (var y = 0; y < size_y; y++) {
+    for (var x = 0; x < size_x; x++) {
       bricks[y][x] = {
         //teinte de la brique en HSB (ici, 0 = rouge), en degrés (de 0 à 360)
         color_hue: 0,
-        //représente le nombre de fois qu'il reste à taper la brique pour la casser (si = 0 --&gt; brique inexistante)
+        //représente le nombre de fois qu'il reste à taper la brique pour la casser (si = 0 --> brique inexistante)
         state: 1
       };
     }
@@ -878,7 +878,7 @@ function getLevelFileList() {
   var list = [];
 
   for (var p in window.localStorage) { //code récupéré depuis Algoscript
-    if (SousChaine(p, 0, Longueur('dropbox-auth')) != 'dropbox-auth' &amp;&amp; typeof(window.localStorage[p]) == 'string' &amp;&amp; p.indexOf(".level") != -1) {
+    if (SousChaine(p, 0, Longueur('dropbox-auth')) != 'dropbox-auth' && typeof(window.localStorage[p]) == 'string' && p.indexOf(".level") != -1) {
       list.push(p);
     }
   }
@@ -891,7 +891,7 @@ function getCurrentLevelIndex() {
   var list = getLevelFileList();
   var index = 0;
 
-  for (var i = 0; i &lt; list.length; i++) {
+  for (var i = 0; i < list.length; i++) {
     if (list[i] == current_level_filename) {
       index = i;
       break; //on arrête la boucle si on a trouvé le fichier, rien ne sert de continuer
@@ -905,7 +905,7 @@ function selectNextLevel() {
   var list = getLevelFileList();
   var index = 0;
 
-  for (var i = 0; i &lt; list.length; i++) {
+  for (var i = 0; i < list.length; i++) {
     if (list[i] == current_level_filename) {
       index = i;
       break; //même remarque que la fonction précédente
@@ -913,7 +913,7 @@ function selectNextLevel() {
   }
 
   //si l'index trouvé n'est pas à la fin de la liste, on prend le suivant
-  if (index &lt; list.length - 1) {
+  if (index < list.length - 1) {
     index++;
   } else { //sinon on revient au début
     index = 0;
@@ -1013,7 +1013,7 @@ function Anchor(dir) {
   this.handleMouseEvent = function(e) {
     var in_anchor = this.isPointInAnchor(mouseX, mouseY);
 
-    if (in_anchor &amp;&amp; e.type == "mousedown") {
+    if (in_anchor && e.type == "mousedown") {
       cursor_locked_by = this;
       this.onMouseDown(mouseX, mouseY);
     }
@@ -1027,7 +1027,7 @@ function Anchor(dir) {
     }
 
     if (e.type == "mousemove") {
-      if (!locked &amp;&amp; in_anchor) GEBID("mycanvas").style.cursor = this.cursor;
+      if (!locked && in_anchor) GEBID("mycanvas").style.cursor = this.cursor;
       this.onMouseMove(mouseX, mouseY);
     }
   };
@@ -1079,7 +1079,7 @@ function ColorPicker() {
     return getDist({
       x: x,
       y: y
-    }, circle_pos) &lt;= radius;
+    }, circle_pos) <= radius;
   }
 
   this.init = function() { //initialisation de la position (car apparemment il n'y a pas de constructeurs dans cette version du JavaScript)
@@ -1097,7 +1097,7 @@ function ColorPicker() {
   this.handleMouseEvent = function(e) {
     var in_anchor = this.isPointInAnchor(mouseX, mouseY);
 
-    if (in_anchor &amp;&amp; e.type == "mousedown") {
+    if (in_anchor && e.type == "mousedown") {
       cursor_locked_by = this;
       GEBID("mycanvas").style.cursor = cursor_grabbing;
       this.onMouseDown(mouseX, mouseY);
@@ -1112,7 +1112,7 @@ function ColorPicker() {
     }
 
     if (e.type == "mousemove") {
-      if (!locked &amp;&amp; in_anchor) GEBID("mycanvas").style.cursor = cursor_grab;
+      if (!locked && in_anchor) GEBID("mycanvas").style.cursor = cursor_grab;
       this.onMouseMove(mouseX, mouseY);
     }
   };
@@ -1140,7 +1140,7 @@ function ColorPicker() {
 
   this.draw = function() {
     //un peu barbare comme façon de faire un arc-en-ciel, mais ne marche pas parfaitement avec la fonction Rainbow() créée plus bas car la couleur sélectionnée ne correspond pas vraiment
-    for (var i = 0; i &lt; this.width; i++) {
+    for (var i = 0; i < this.width; i++) {
       Ligne(this.x + i, this.y, this.x + i, this.y + this.height, HSBtoRGB((i * (359 / this.width)) / 359, 1, 1));
     }
 
@@ -1171,7 +1171,7 @@ function ListView() {
   //compare la différence entre la position down et up de la souris et une certaine marge d'erreur. On peut facilement décaler un peu la souris sans faire exprès quand on clique
 
   function isPointClicked(x_down, y_down, x_up, y_up, error_margin) {
-    return (x_up &gt;= x_down - error_margin) &amp;&amp; (x_up &lt;= x_down + error_margin) &amp;&amp; (y_up &gt;= y_down - error_margin) &amp;&amp; (y_up &lt;= y_down + error_margin);
+    return (x_up >= x_down - error_margin) && (x_up <= x_down + error_margin) && (y_up >= y_down - error_margin) && (y_up <= y_down + error_margin);
   }
 
   //calcule la partie de la liste à afficher (la partie visible dans la fenêtre actuelle) : rien ne sert de parcourir toute la liste dans la boucle for
@@ -1179,7 +1179,7 @@ function ListView() {
     var min = getPreviousFullItemIndex(this.scrollOffset, this.itemHeight + this.spacing);
     var max = getPreviousFullItemIndex(this.scrollOffset + this.height - this.spacing, this.itemHeight + this.spacing);
 
-    if (max &gt; this.list.length - 1) {
+    if (max > this.list.length - 1) {
       max = this.list.length - 1;
     }
 
@@ -1205,15 +1205,11 @@ function ListView() {
     this.udpdateItemsToDraw();
   };
 
-  this.indexOf = function(item) {
-	return this.list.indexOf(item);
-  }
-  
   this.setList = function(list) {
     this.list = list;
     this.totalHeight = list.length * this.itemHeight + (list.length + 1) * this.spacing;
-    this.scrollRatio = (this.list.length &gt; 0) ? this.height / this.totalHeight : 1; //la liste peut être vide, dans ce cas, le ratio doit être de 1 pour que la scrollBar fasse la hauteur de la liste entière
-    if (this.totalHeight &lt;= this.height - 2 * this.itemHeight) { //autrement dit, si la hauteur totale des éléments ne dépasse pas celle de la liste, on désactive le scroll
+    this.scrollRatio = (this.list.length > 0) ? this.height / this.totalHeight : 1; //la liste peut être vide, dans ce cas, le ratio doit être de 1 pour que la scrollBar fasse la hauteur de la liste entière
+    if (this.totalHeight <= this.height - 2 * this.itemHeight) { //autrement dit, si la hauteur totale des éléments ne dépasse pas celle de la liste, on désactive le scroll
       this.scrollEnabled = false;
       this.scrollRatio = 1;
     }
@@ -1240,7 +1236,7 @@ function ListView() {
     var real_y = y - this.y - this.spacing + this.scrollOffset;
     var i = getPreviousFullItemIndex(real_y, this.itemHeight + this.spacing);
 
-    if (y &gt; this.y + this.spacing + (this.spacing + this.itemHeight) * i - this.scrollOffset + this.itemHeight) {
+    if (y > this.y + this.spacing + (this.spacing + this.itemHeight) * i - this.scrollOffset + this.itemHeight) {
       i = -1; //pas sélectionné car le clic est dans l'espace entre 2 éléments
     }
 
@@ -1248,7 +1244,7 @@ function ListView() {
   };
 
   this.handleMouseEvent = function(e) {
-    if (this.isPointInListView(mouseX, mouseY) &amp;&amp; e.type == "mousedown") {
+    if (this.isPointInListView(mouseX, mouseY) && e.type == "mousedown") {
       this.onMouseDown(mouseX, mouseY);
     }
 
@@ -1284,10 +1280,10 @@ function ListView() {
   this.onSelectedChanged = function() {};
 
   this.onMouseUp = function(x, y) {
-    if (locked_in_list &amp;&amp; isPointClicked(point_down.x, point_down.y, x, y, this.error_margin)) {
+    if (locked_in_list && isPointClicked(point_down.x, point_down.y, x, y, this.error_margin)) {
       var i = this.getIndexByPosition(y);
 
-      if (i &gt; -1 &amp;&amp; i &lt; this.list.length) { //on ne veut pas avoir aucune sélection dans la liste donc si i = -1 on ne fait rien
+      if (i > -1 && i < this.list.length) { //on ne veut pas avoir aucune sélection dans la liste donc si i = -1 on ne fait rien
         this.selectedIndex = i;
         this.onSelectedChanged();
       }
@@ -1322,7 +1318,7 @@ function ListView() {
     setFont("Helvetica", this.itemTextSize);
 
     //on dessine les éléments à dessiner (ce qu'on a calculé précédemment)
-    for (var i = this.itemsToDraw.min; i &lt;= this.itemsToDraw.max; i++) {
+    for (var i = this.itemsToDraw.min; i <= this.itemsToDraw.max; i++) {
       RectanglePlein(this.x + this.spacing, this.y + this.spacing + (this.spacing + this.itemHeight) * i - this.scrollOffset, this.width - 2 * this.spacing - this.scrollBarWidth, this.itemHeight, (i == this.selectedIndex) ? "cornflowerblue" : "aliceblue");
       Texte(this.x + this.spacing + this.itemTextMargin.left, this.y + this.spacing + this.itemTextMargin.top + (this.spacing + this.itemHeight) * i - this.scrollOffset, this.list[i], "black");
     }
@@ -1536,14 +1532,14 @@ function NumericUpDown(text, colors) {
     if (up_locked || down_locked) {
       this.i++;
 
-      if (this.i &gt; this.i_max) {
+      if (this.i > this.i_max) {
         if (up_locked) this.increment(1);
         if (down_locked) this.increment(-1);
 
         this.i = 0;
         this.j++;
 
-        if (this.j &gt; 5) {
+        if (this.j > 5) {
           this.i_max -= 5;
           this.j = 0;
         }
@@ -1571,7 +1567,7 @@ function setupMenu() {
   title_x = (canvas_width - getTextWidth("Duo Breakout")) / 2;
 
   //Mise en place des boutons
-  menu_buttons[0] = new Button(size, red_button_colors, "Play", "white", 80);
+  menu_buttons[0] = new Button(size, red_button_colors, "Jouer", "white", 80);
   menu_buttons[0].centerHorizontally(350);
   menu_buttons[0].onClick = function() {
     if (current_level_filename == "Aucun niveau choisi") {
@@ -1585,7 +1581,7 @@ function setupMenu() {
     game.stage = game_stage.GAME;
   };
 
-  menu_buttons[1] = new Button(size, red_button_colors, "Choose level", "white", 50);
+  menu_buttons[1] = new Button(size, red_button_colors, "Choix du niveau", "white", 50);
   menu_buttons[1].centerHorizontally(550);
   menu_buttons[1].onClick = function() {
     //on montre la liste des niveaux
@@ -1611,26 +1607,26 @@ function setupMenu() {
 
 function setupMenuListeners() {
   onmousedown = function(e) {
-    for (var i = 0; i &lt; menu_buttons.length; i++) {
+    for (var i = 0; i < menu_buttons.length; i++) {
       menu_buttons[i].testAndSetState(mouseX, mouseY, btn_state.DOWN);
     }
   };
 
   onmouseup = function(e) {
-    for (var i = 0; i &lt; menu_buttons.length; i++) {
+    for (var i = 0; i < menu_buttons.length; i++) {
       menu_buttons[i].testAndSetState(mouseX, mouseY, btn_state.UP);
     }
   };
 }
 
 function getAuthors() {
-  return "Authors:\n\n" + "Chan Pierre-Louis\n" + "Foessel Erwan\n" + "Girard Corentin";
+  return "Auteurs :\n\n" + "Chan Pierre-Louis\n" + "Foessel Erwan\n" + "Girard Corentin";
 }
 
 function getScoresList() {
   var scores = "";
 
-  for (var i = 0; i &lt; game_config.best_scores.length; i++) {
+  for (var i = 0; i < game_config.best_scores.length; i++) {
     scores += (i + 1) + " - " + game_config.best_scores[i] + "\n\n";
   }
 
@@ -1652,13 +1648,13 @@ function drawMenu() {
   Rectangle(80, 180, 430, 480, "white");
 
   setFont("Helvetica", 38);
-  Texte(130, 250, "Best Scores:", "white");
+  Texte(130, 250, "Meilleurs scores :", "white");
 
   setFont("Helvetica", 30);
   Texte(130, 330, getScoresList(), "white");
 
   //boutons
-  for (var i = 0; i &lt; menu_buttons.length; i++) {
+  for (var i = 0; i < menu_buttons.length; i++) {
     if (menu_buttons[i].state != btn_state.DOWN) {
       menu_buttons[i].testAndSetState(mouseX, mouseY, btn_state.HOVER);
     }
@@ -1675,7 +1671,7 @@ function setupLevelListListeners() {
   onmousedown = function(e) {
     lv.handleMouseEvent(e);
 
-    for (var i = 0; i &lt; level_list_buttons.length; i++) {
+    for (var i = 0; i < level_list_buttons.length; i++) {
       level_list_buttons[i].testAndSetState(mouseX, mouseY, btn_state.DOWN);
     }
   };
@@ -1683,7 +1679,7 @@ function setupLevelListListeners() {
   onmouseup = function(e) {
     lv.handleMouseEvent(e);
 
-    for (var i = 0; i &lt; level_list_buttons.length; i++) {
+    for (var i = 0; i < level_list_buttons.length; i++) {
       level_list_buttons[i].testAndSetState(mouseX, mouseY, btn_state.UP);
     }
   };
@@ -1724,7 +1720,7 @@ function setupLevelList() {
 
   var x = lv.x + lv.width + 50;
 
-  level_list_buttons[0] = new Button(size, red_button_colors, "New", "white", 33);
+  level_list_buttons[0] = new Button(size, red_button_colors, "Nouveau", "white", 33);
   level_list_buttons[0].x = x;
   level_list_buttons[0].y = 200;
   level_list_buttons[0].onClick = function() {
@@ -1735,7 +1731,7 @@ function setupLevelList() {
     game.stage = game_stage.LEVEL_EDITOR;
   };
 
-  level_list_buttons[1] = new Button(size, red_button_colors, "Choose", "white", 33);
+  level_list_buttons[1] = new Button(size, red_button_colors, "Choisir", "white", 33);
   level_list_buttons[1].x = x;
   level_list_buttons[1].y = 310;
   level_list_buttons[1].onClick = function() {
@@ -1757,7 +1753,7 @@ function setupLevelList() {
     saveConfigFile();
   };
 
-  level_list_buttons[2] = new Button(size, red_button_colors, "Edit", "white", 33);
+  level_list_buttons[2] = new Button(size, red_button_colors, "Modifier", "white", 33);
   level_list_buttons[2].x = x;
   level_list_buttons[2].y = 420;
   level_list_buttons[2].onClick = function() {
@@ -1768,7 +1764,7 @@ function setupLevelList() {
     game.stage = game_stage.LEVEL_EDITOR;
   };
 
-  level_list_buttons[3] = new Button(size, red_button_colors, "Delete", "white", 33);
+  level_list_buttons[3] = new Button(size, red_button_colors, "Supprimer", "white", 33);
   level_list_buttons[3].x = x;
   level_list_buttons[3].y = 530;
   level_list_buttons[3].onClick = function() {
@@ -1782,7 +1778,7 @@ function setupLevelList() {
     }
 
     //si l'index sélectionné est en dehors de la nouvelle liste, on le met à la fin
-    if (lv.selectedIndex &gt; lv.list.length - 1) {
+    if (lv.selectedIndex > lv.list.length - 1) {
       lv.selectedIndex = lv.list.length - 1;
     } else { //sinon on récupère le nouvel index de l'ancien niveau sélectionné
       lv.selectedIndex = getCurrentLevelIndex();
@@ -1796,7 +1792,7 @@ function setupLevelList() {
     setupGridPreview();
   };
 
-  level_list_buttons[4] = new Button(size, red_button_colors, "Back", "white", 33);
+  level_list_buttons[4] = new Button(size, red_button_colors, "Retour", "white", 33);
   level_list_buttons[4].x = 50;
   level_list_buttons[4].y = canvas_height - 130;
   level_list_buttons[4].onClick = function() {
@@ -1835,14 +1831,14 @@ function setupGridPreview() {
 function drawGridPreview() {
   RectanglePlein(preview_x, preview_y, preview_width, preview_ratio * canvas_height, "white");
 
-  for (var j = 0; j &lt; preview_level_config.max_brick_count.y; j++) {
-    for (var i = 0; i &lt; preview_level_config.max_brick_count.x; i++) {
+  for (var j = 0; j < preview_level_config.max_brick_count.y; j++) {
+    for (var i = 0; i < preview_level_config.max_brick_count.x; i++) {
       x = preview_x + preview_level_config.brick_area_margin.left * preview_ratio + i * (width + preview_space_between_bricks.x);
       y = preview_y + preview_level_config.brick_area_margin.top * preview_ratio + j * (height + preview_space_between_bricks.y);
 
-      if (preview_level_config.bricks[j][i].state &lt; 0) {
+      if (preview_level_config.bricks[j][i].state < 0) {
         RectanglePlein(x, y, width, height, "black");
-      } else if (preview_level_config.bricks[j][i].state &gt; 0) {
+      } else if (preview_level_config.bricks[j][i].state > 0) {
         RectanglePlein(x, y, width, height, HSBtoRGB(preview_level_config.bricks[j][i].color_hue / 360, 1, brick_brightness[preview_level_config.bricks[j][i].state]));
       }
     }
@@ -1856,12 +1852,12 @@ function drawLevelList() {
   drawGridPreview();
 
   setFont("Helvetica", 50);
-  Texte(80, 100, "Level list", "white");
+  Texte(80, 100, "Liste des niveaux", "white");
 
   setFont("Helvetica", 20);
-  Texte(lv.x, lv.y + lv.height + 40, "Current level: " + current_level_filename + " (" + (lv.indexOf(current_level_filename) + 1) + "/" + lv.list.length + ")", "white");
+  Texte(lv.x, lv.y + lv.height + 40, "Niveau actuel : " + current_level_filename + " (" + (lv.selectedIndex + 1) + "/" + lv.list.length + ")", "white");
 
-  for (var i = 0; i &lt; level_list_buttons.length; i++) {
+  for (var i = 0; i < level_list_buttons.length; i++) {
     if (level_list_buttons[i].state != btn_state.DOWN) {
       level_list_buttons[i].testAndSetState(mouseX, mouseY, btn_state.HOVER);
     }
@@ -1886,11 +1882,11 @@ function setupLevelEditorListeners() {
   onmousedown = function(e) {
     cp.handleMouseEvent(e);
 
-    for (var i = 0; i &lt; level_editor_buttons.length; i++) {
+    for (var i = 0; i < level_editor_buttons.length; i++) {
       level_editor_buttons[i].testAndSetState(mouseX, mouseY, btn_state.DOWN);
     }
 
-    for (i = 0; i &lt; level_editor_anchors.length; i++) {
+    for (i = 0; i < level_editor_anchors.length; i++) {
       level_editor_anchors[i].handleMouseEvent(e);
       level_editor_numericsUD[i].handleMouseEvent(e);
     }
@@ -1899,16 +1895,16 @@ function setupLevelEditorListeners() {
   onmouseup = function(e) {
     cp.handleMouseEvent(e);
 
-    for (var i = 0; i &lt; level_editor_buttons.length; i++) {
+    for (var i = 0; i < level_editor_buttons.length; i++) {
       level_editor_buttons[i].testAndSetState(mouseX, mouseY, btn_state.UP);
     }
 
-    for (i = 0; i &lt; level_editor_anchors.length; i++) {
+    for (i = 0; i < level_editor_anchors.length; i++) {
       level_editor_anchors[i].handleMouseEvent(e);
       level_editor_numericsUD[i].handleMouseEvent(e);
     }
 
-    if (!cursor_locked_by &amp;&amp; isPointInRect(mouseX, mouseY, editor_brick_rect.x, editor_brick_rect.y, editor_brick_rect.width, editor_brick_rect.height)) {
+    if (!cursor_locked_by && isPointInRect(mouseX, mouseY, editor_brick_rect.x, editor_brick_rect.y, editor_brick_rect.width, editor_brick_rect.height)) {
       handleClickOnEditorBrick(e);
     }
 
@@ -1928,7 +1924,7 @@ function setupLevelEditorListeners() {
       cp.handleMouseEvent(e);
     }
 
-    for (var i = 0; i &lt; level_editor_anchors.length; i++) {
+    for (var i = 0; i < level_editor_anchors.length; i++) {
       level_editor_anchors[i].handleMouseEvent(e);
       level_editor_numericsUD[i].handleMouseEvent(e);
     }
@@ -1937,10 +1933,10 @@ function setupLevelEditorListeners() {
 
 function handleClickOnEditorBrick(e) {
   var i = getPreviousFullItemIndex(mouseX - editor_brick_rect.x, width + space_between_bricks.x);
-  if (mouseX &gt; editor_level_config.brick_area_margin.left + i * (width + space_between_bricks.x) + width) return; //clic sur un espace x entre les briques
+  if (mouseX > editor_level_config.brick_area_margin.left + i * (width + space_between_bricks.x) + width) return; //clic sur un espace x entre les briques
   var j = getPreviousFullItemIndex(mouseY - editor_brick_rect.y, height + space_between_bricks.y);
-  if (mouseY &gt; editor_level_config.brick_area_margin.top + j * (height + space_between_bricks.y) + height) return; //clic sur un espace y entre les briques
-  if (e.button == 0 &amp;&amp; editor_level_config.bricks[j][i].state &lt; 5) { //clic gauche, max de vies = 5
+  if (mouseY > editor_level_config.brick_area_margin.top + j * (height + space_between_bricks.y) + height) return; //clic sur un espace y entre les briques
+  if (e.button == 0 && editor_level_config.bricks[j][i].state < 5) { //clic gauche, max de vies = 5
     if (editor_level_config.bricks[j][i].state == 0) { //si la brique est invisible, on en profite pour attribuer sa couleur : alternative au clic molette pour les pavés tactiles
       editor_level_config.bricks[j][i].color_hue = Math.round(cp.selectedColorHue * 360);
     }
@@ -1952,7 +1948,7 @@ function handleClickOnEditorBrick(e) {
     editor_level_config.bricks[j][i].color_hue = Math.round(cp.selectedColorHue * 360);
   }
 
-  if (e.button == 2 &amp;&amp; editor_level_config.bricks[j][i].state &gt; -1) { //clic droit, min de vies = -1 qui correspond à une brique incassable
+  if (e.button == 2 && editor_level_config.bricks[j][i].state > -1) { //clic droit, min de vies = -1 qui correspond à une brique incassable
     editor_level_config.bricks[j][i].state--;
   }
 }
@@ -1981,17 +1977,17 @@ function setupLevelEditor() {
   cp.init();
 
   /* Les NumericUpDown pour les valeurs numériques */
-  level_editor_numericsUD[0] = new NumericUpDown("Bricks per line", red_button_colors);
+  level_editor_numericsUD[0] = new NumericUpDown("Briques par ligne", red_button_colors);
   level_editor_numericsUD[0].alignRight(50, 180);
   level_editor_numericsUD[0].setMinMax(1, 20);
   level_editor_numericsUD[0].value = editor_level_config.max_brick_count.x;
 
-  level_editor_numericsUD[1] = new NumericUpDown("Bricks per column", red_button_colors);
+  level_editor_numericsUD[1] = new NumericUpDown("Briques par colonne", red_button_colors);
   level_editor_numericsUD[1].alignRight(50, 280);
   level_editor_numericsUD[1].setMinMax(1, 20);
   level_editor_numericsUD[1].value = editor_level_config.max_brick_count.y;
 
-  level_editor_numericsUD[2] = new NumericUpDown("Ball speed", red_button_colors);
+  level_editor_numericsUD[2] = new NumericUpDown("Vitesse balle", red_button_colors);
   level_editor_numericsUD[2].alignRight(50, 500);
   level_editor_numericsUD[2].setMinMax(5, 15);
   level_editor_numericsUD[2].value = editor_level_config.ball_speed;
@@ -1999,7 +1995,7 @@ function setupLevelEditor() {
     editor_level_config.ball_speed = value;
   };
 
-  level_editor_numericsUD[3] = new NumericUpDown("Racket length", red_button_colors);
+  level_editor_numericsUD[3] = new NumericUpDown("Longueur raquette", red_button_colors);
   level_editor_numericsUD[3].alignRight(50, 600);
   level_editor_numericsUD[3].setMinMax(20, 200);
   level_editor_numericsUD[3].value = editor_level_config.racket_length;
@@ -2071,7 +2067,7 @@ function setupLevelEditor() {
     height: 50
   };
 
-  level_editor_buttons[0] = new Button(size, red_button_colors, "Center x", "white", 20);
+  level_editor_buttons[0] = new Button(size, red_button_colors, "Centrer x", "white", 20);
   level_editor_buttons[0].x = canvas_width - 420;
   level_editor_buttons[0].y = canvas_height - 180;
   level_editor_buttons[0].onClick = function() {
@@ -2086,7 +2082,7 @@ function setupLevelEditor() {
     setAnchorsPosition();
   };
 
-  level_editor_buttons[1] = new Button(size, red_button_colors, "Center y", "white", 20);
+  level_editor_buttons[1] = new Button(size, red_button_colors, "Centrer y", "white", 20);
   level_editor_buttons[1].x = canvas_width - 420;
   level_editor_buttons[1].y = canvas_height - 120;
   level_editor_buttons[1].onClick = function() {
@@ -2106,7 +2102,7 @@ function setupLevelEditor() {
     height: 60
   };
 
-  level_editor_buttons[2] = new Button(size, red_button_colors, "Back", "white", 25);
+  level_editor_buttons[2] = new Button(size, red_button_colors, "Retour", "white", 25);
   level_editor_buttons[2].x = 50;
   level_editor_buttons[2].y = canvas_height - 110;
   level_editor_buttons[2].onClick = function() {
@@ -2115,7 +2111,7 @@ function setupLevelEditor() {
     game.stage = game_stage.LEVEL_LIST;
   };
 
-  level_editor_buttons[3] = new Button(size, red_button_colors, "Apply", "white", 25);
+  level_editor_buttons[3] = new Button(size, red_button_colors, "Valider", "white", 25);
   level_editor_buttons[3].x = canvas_width - 250;
   level_editor_buttons[3].y = 380;
   level_editor_buttons[3].onClick = function() {
@@ -2144,7 +2140,7 @@ function setupLevelEditor() {
     setAnchorsPosition();
   };
 
-  level_editor_buttons[5] = new Button(size, red_button_colors, "Save as", "white", 25);
+  level_editor_buttons[5] = new Button(size, red_button_colors, "Enregistrer", "white", 25);
   level_editor_buttons[5].x = canvas_width - 250;
   level_editor_buttons[5].y = canvas_height - 110;
   level_editor_buttons[5].onClick = function() {
@@ -2155,7 +2151,7 @@ function setupLevelEditor() {
 
 /*La regex /^\s*$/ correspond à une chaîne qui commence et finit par 0 ou plus espaces quelconques (tabs, etc.). C'est ce que l'on ne veut pas
     Et si la chaîne contient un point (donc potentiellement une extension) mais pas de ".level", ce n'est pas ce que l'on veut non plus.*/
-    if (/^\s*$/.test(result) || (result.indexOf(".") != -1 &amp;&amp; result.substring(result.indexOf(".")) != ".level")) {
+    if (/^\s*$/.test(result) || (result.indexOf(".") != -1 && result.substring(result.indexOf(".")) != ".level")) {
       alert("Le nom de fichier n'est pas au bon format. Entrez juste un numéro !");
       return;
     }
@@ -2182,14 +2178,14 @@ function drawEditorGrid() {
   width = (canvas_width - (editor_level_config.max_brick_count.x - 1) * space_between_bricks.x - editor_level_config.brick_area_margin.left - editor_level_config.brick_area_margin.right) / editor_level_config.max_brick_count.x;
   height = (canvas_height - (editor_level_config.max_brick_count.y - 1) * space_between_bricks.y - editor_level_config.brick_area_margin.top - editor_level_config.brick_area_margin.bottom) / editor_level_config.max_brick_count.y;
 
-  for (var j = 0; j &lt; editor_level_config.max_brick_count.y; j++) {
-    for (var i = 0; i &lt; editor_level_config.max_brick_count.x; i++) {
+  for (var j = 0; j < editor_level_config.max_brick_count.y; j++) {
+    for (var i = 0; i < editor_level_config.max_brick_count.x; i++) {
       x = editor_level_config.brick_area_margin.left + i * (width + space_between_bricks.x);
       y = editor_level_config.brick_area_margin.top + j * (height + space_between_bricks.y);
 
-      if (editor_level_config.bricks[j][i].state &lt; 0) {
+      if (editor_level_config.bricks[j][i].state < 0) {
         RectanglePlein(x, y, width, height, "black");
-      } else if (editor_level_config.bricks[j][i].state &gt; 0) {
+      } else if (editor_level_config.bricks[j][i].state > 0) {
         RectanglePlein(x, y, width, height, HSBtoRGB(editor_level_config.bricks[j][i].color_hue / 360, 1, brick_brightness[editor_level_config.bricks[j][i].state]));
       }
     }
@@ -2203,7 +2199,7 @@ var demo_ball_y, demo_ball_dir = 1,
  demo_ball_max_y = 720;
 
 function drawBallAndRacket() {
-  Texte(60, 370, "Demo:", "black");
+  Texte(60, 370, "Démo :", "black");
 
   DrawImageObject(img_ball, 230, demo_ball_y - 30, 60, 60);
 
@@ -2211,11 +2207,11 @@ function drawBallAndRacket() {
 
   demo_ball_y += demo_ball_dir * editor_level_config.ball_speed;
 
-  if (demo_ball_y &gt; demo_ball_max_y) {
+  if (demo_ball_y > demo_ball_max_y) {
     demo_ball_dir = -1;
   }
 
-  if (demo_ball_y &lt; demo_ball_min_y) {
+  if (demo_ball_y < demo_ball_min_y) {
     demo_ball_dir = 1;
   }
 }
@@ -2224,10 +2220,10 @@ function drawLevelEditor() {
   Clear("white");
 
   setFont("Helvetica", 50);
-  Texte(40, 80, "Level editor", "black");
+  Texte(40, 80, "Éditeur de niveau", "black");
 
   setFont("Helvetica", 24);
-  Texte(60, 170, "Bricks' commands:\n\n - Left-click = increase life\n - Middle-click = apply color\n - Right click = decrease life\n    (up to non-existent or unbreakable)", "black");
+  Texte(60, 170, "Commandes pour les briques :\n\n - Clic gauche = ajouter vie\n - Clic molette = appliquer couleur\n - Clic droit = baisser vie\n    (jusqu'à inexistante ou incassable)", "black");
 
   cp.draw();
 
@@ -2238,7 +2234,7 @@ function drawLevelEditor() {
   drawEditorGrid();
   drawBallAndRacket();
 
-  for (var i = 0; i &lt; level_editor_buttons.length; i++) {
+  for (var i = 0; i < level_editor_buttons.length; i++) {
     if (level_editor_buttons[i].state != btn_state.DOWN) {
       level_editor_buttons[i].testAndSetState(mouseX, mouseY, btn_state.HOVER);
     }
@@ -2246,7 +2242,7 @@ function drawLevelEditor() {
     level_editor_buttons[i].draw();
   }
 
-  for (i = 0; i &lt; level_editor_anchors.length; i++) {
+  for (i = 0; i < level_editor_anchors.length; i++) {
     level_editor_anchors[i].draw();
     level_editor_numericsUD[i].draw();
   }
@@ -2265,20 +2261,20 @@ function addInstrucLine(line) {
   instruc += line;
 
   line_width = getTextWidth(line);
-  if (line_width &gt; max_line_width) max_line_width = line_width;
+  if (line_width > max_line_width) max_line_width = line_width;
 }
 
-function setInstruc() {  
-  addInstrucLine("Player 1 controls the racket on the left side of the screen with Z (up) and S (down).\n\n");
-  addInstrucLine("Player 2 controls the racket on the right side of the screen with O (up) and L (down).\n\n");
-  addInstrucLine("You will notice that one of the bricks is \"special\": once touched, this brick will open and reveal a mini-game.\n\n");
-  addInstrucLine("In this mini-game, Player 1 controls a spaceship with Z (go forward), Q (pivot left), D (pivot right) and SPACE (shoot).\n\n");
-  addInstrucLine("Player 2 controls a character with O (up), K (left), L (down) and M (right).\n\n");
-  addInstrucLine("This character is trapped in a circle whose movements are random.\n\n");
-  addInstrucLine("Player 1 (ship) must save Player 2 (trapped) by firing on the circle.\n\n");
-  addInstrucLine("When the circle is defeated, the brick is destroyed and closes, and game returns to normal.\n\n");
-  addInstrucLine("If you lose in the mini-game, the brick closes but is not destroyed.\n\n");
-  addInstrucLine("It is imperative to break all the bricks to win, so win the mini-game.");
+function setInstruc() {
+  addInstrucLine("Le Joueur 1 contrôle la raquette à gauche de l'écran, avec les touches Z (monter) et S (descendre).\n\n");
+  addInstrucLine("Le Joueur 2 contrôle la raquette à droite de l'écran, avec les touches O (monter) et L (descendre).\n\n");
+  addInstrucLine("Vous remarquerez qu'une des briques est \"spéciale\" : une fois touchée, cette brique va s'ouvrir et dévoiler un mini-jeu.\n\n");
+  addInstrucLine("Dans ce mini-jeu, le Joueur 1 contrôle un vaisseau spatial avec les touches Z (avancer), Q (pivoter à gauche), D (pivoter à droite) et ESPACE (tirer).\n\n");
+  addInstrucLine("Le Joueur 2 contrôle un personnage avec les touches O (haut), K (gauche), L (bas) et M (droite).\n\n");
+  addInstrucLine("Ce personnage est enfermé dans un cercle dont les déplacements sont aléatoires.\n\n");
+  addInstrucLine("Le Joueur 1 (vaisseau) doit sauver le Joueur 2 (enfermé) en tirant sur le cercle.\n\n");
+  addInstrucLine("Quand le cercle est vaincu, la brique est détruite et se referme, et le jeu revient à la normale.\n\n");
+  addInstrucLine("Si vous perdez dans le mini-jeu, la brique se referme mais n'est pas détuite.\n\n");
+  addInstrucLine("Il est impératif de casser toutes les briques pour gagner, donc de gagner le mini-jeu.");
 }
 
 function setupInstructions() {
@@ -2316,7 +2312,7 @@ function drawInstructions() {
   Clear("black");
 
   setFont("Helvetica", 40);
-  Texte(instruc_x, 100, "Instructions:", "white");
+  Texte(instruc_x, 100, "Instructions :", "white");
 
   setFont("Helvetica", instruc_size);
   Texte(instruc_x, 180, instruc, "white");
@@ -2363,7 +2359,7 @@ function setupGame() {
   added_score_text.setPosition(150, 100);
   added_score_text.color = "red";
 
-  if (debug_in_brick &gt; -1) { //on peut forcer une brique à être la spéciale pour nous simplifier la vie (seulement pour les dév)
+  if (debug_in_brick > -1) { //on peut forcer une brique à être la spéciale pour nous simplifier la vie (seulement pour les dév)
     InitBricks(debug_in_brick);
   } else {
     InitBricks(Random(0, current_level_config.max_brick_count.x * current_level_config.max_brick_count.y - 1));
@@ -2376,7 +2372,7 @@ function setupGame() {
 }
 
 
-/* ---------------- [ STAGE = GAME  &amp;&amp;  STATUS = RUNNING ] -------------- */
+/* ---------------- [ STAGE = GAME  &&  STATUS = RUNNING ] -------------- */
 
 
 var score, lifes;
@@ -2391,8 +2387,8 @@ function drawOnlyGameState() {
 
   HandleGameKeyboard();
 
-  for (var y = 0; y &lt; current_level_config.max_brick_count.y; y++) {
-    for (var x = 0; x &lt; current_level_config.max_brick_count.x; x++) {
+  for (var y = 0; y < current_level_config.max_brick_count.y; y++) {
+    for (var x = 0; x < current_level_config.max_brick_count.x; x++) {
       bricks[y][x].draw();
     }
   }
@@ -2429,7 +2425,7 @@ function drawScore() {
 }
 
 function drawLifes() {
-  for (var i = 1; i &lt;= lifes; i++) {
+  for (var i = 1; i <= lifes; i++) {
     drawHeart(canvas_width - 320 + i * 80, 75);
   }
 }
@@ -2502,8 +2498,8 @@ function drawGame() {
 
   Step();
 
-  for (var y = 0; y &lt; current_level_config.max_brick_count.y; y++) {
-    for (var x = 0; x &lt; current_level_config.max_brick_count.x; x++) {
+  for (var y = 0; y < current_level_config.max_brick_count.y; y++) {
+    for (var x = 0; x < current_level_config.max_brick_count.x; x++) {
       var b = bricks[y][x];
 
       BrickHitTest(b, ball1);
@@ -2581,7 +2577,7 @@ function Brick(pos_x, pos_y) { //x et y sont en base zéro
       special_brick = this;
       setupInBrick();
       game.stage = game_stage.IN_BRICK;
-    } else if (this.state &gt; -1) { //si la brique n'est pas incassable, on lui enlève une vie, et on comptabilise le point
+    } else if (this.state > -1) { //si la brique n'est pas incassable, on lui enlève une vie, et on comptabilise le point
       this.state--;
       this.updateBrickColor();
 
@@ -2595,13 +2591,13 @@ function Brick(pos_x, pos_y) { //x et y sont en base zéro
 
   this.draw = function() {
     //3 façons de dessiner la brique : en arc-en-ciel si spéciale, de sa couleur si normale et en noir si incassable.
-    if (this.state &gt; 0) {
+    if (this.state > 0) {
       if (this.special) {
         RectanglePlein(this.x, this.y, this.width, this.height, Rainbow(this.x, this.y, this.width, this.height));
       } else {
         RectanglePlein(this.x, this.y, this.width, this.height, this.color);
       }
-    } else if (this.state &lt; 0) {
+    } else if (this.state < 0) {
       RectanglePlein(this.x, this.y, this.width, this.height, "black");
     }
   };
@@ -2613,26 +2609,26 @@ function InitBricks(special_brick_position) {
   //On crée un tableau de tableau de briques (un tableau à 2 dimensions)
   bricks = [];
 
-  for (var i = 0; i &lt; current_level_config.max_brick_count.y; i++) {
+  for (var i = 0; i < current_level_config.max_brick_count.y; i++) {
     bricks[i] = [];
   }
 
   var postpone_special = false;
 
   //On initialise le tableau
-  for (var y = 0; y &lt; current_level_config.max_brick_count.y; y++) {
-    for (var x = 0; x &lt; current_level_config.max_brick_count.x; x++) {
+  for (var y = 0; y < current_level_config.max_brick_count.y; y++) {
+    for (var x = 0; x < current_level_config.max_brick_count.x; x++) {
       var b = new Brick(x, y);
 
       if (y * current_level_config.max_brick_count.x + x == special_brick_position) { //cette brique est spéciale
-        if (current_level_config.bricks[y][x].state &lt; 1) { //si cette brique est une brique incassable, on repousse la brique spéciale à la prochaine et ainsi de suite
+        if (current_level_config.bricks[y][x].state < 1) { //si cette brique est une brique incassable, on repousse la brique spéciale à la prochaine et ainsi de suite
           postpone_special = true;
         } else {
           b.special = true;
         }
       }
 
-      if (postpone_special &amp;&amp; current_level_config.bricks[y][x].state &gt; 0) {
+      if (postpone_special && current_level_config.bricks[y][x].state > 0) {
         b.special = true;
         postpone_special = false;
       }
@@ -2679,13 +2675,13 @@ function Racket() {
   this.moveUp = function() {
     this.y -= this.speed;
 
-    if (this.y &lt; 0) this.y = 0;
+    if (this.y < 0) this.y = 0;
   };
 
   this.moveDown = function() {
     this.y += this.speed;
 
-    if (this.y &gt; canvas_height - this.height) {
+    if (this.y > canvas_height - this.height) {
       this.y = canvas_height - this.height;
     }
   };
@@ -2745,14 +2741,14 @@ function Ball() {
     this.x += this.speed.x;
     this.y += this.speed.y;
 
-    if (this.x - this.r &lt;= 0 || this.x + this.r &gt;= canvas_width) {
+    if (this.x - this.r <= 0 || this.x + this.r >= canvas_width) {
       if (cheat) {
         this.speed.x = -this.speed.x;
       } else {
         lifes--;
 
         if (lifes == 0) {
-          loser_player = (this.x - this.r &lt;= 0) ? 1 : 2;
+          loser_player = (this.x - this.r <= 0) ? 1 : 2;
           setupGameOver();
           game.status = game_status.OVER;
         } else {
@@ -2763,23 +2759,23 @@ function Ball() {
       }
     }
 
-    if (this.y - this.r &lt;= 0 || this.y + this.r &gt;= canvas_height) {
+    if (this.y - this.r <= 0 || this.y + this.r >= canvas_height) {
       this.speed.y *= -1;
 
       //si la vitesse x est nulle (quasi impossible) on la fait partir à gauche ou à droite selon où elle est dans l'écran
-      if (this.speed.x == 0 &amp;&amp; this.x &lt;= canvas_width / 2) {
+      if (this.speed.x == 0 && this.x <= canvas_width / 2) {
         this.speed.x = -1;
       } else if (this.speed.x == 0) {
         this.speed.x = 1;
       }
 
       //si balle va à droite pas assez rapidement, on lui donne un petit boost
-      if (this.speed.x &gt; 0 &amp;&amp; this.speed.x &lt;= this.min_speed_x) {
+      if (this.speed.x > 0 && this.speed.x <= this.min_speed_x) {
         this.speed.x = 1;
       }
 
       //pareil dans l'autre sens
-      if (this.speed.x &lt; 0 &amp;&amp; this.speed.x &gt;= -this.min_speed_x) {
+      if (this.speed.x < 0 && this.speed.x >= -this.min_speed_x) {
         this.speed.x = -1;
       }
     }
@@ -2868,16 +2864,16 @@ var side = {
 
 function collisionWithRacket(onSide, ball, racket) {
   if (onSide == side.right) { //sur le côté droit de la raquette (donc pour la raquette gauche)
-    return ball.speed.x &lt; 0 &amp;&amp; (ball.x - ball.r + ball.speed.x &lt;= racket.x + racket.width) &amp;&amp; (ball.y + ball.r &gt;= racket.y) &amp;&amp; (ball.y - ball.r &lt;= racket.y + racket.height);
+    return ball.speed.x < 0 && (ball.x - ball.r + ball.speed.x <= racket.x + racket.width) && (ball.y + ball.r >= racket.y) && (ball.y - ball.r <= racket.y + racket.height);
   }
 
   if (onSide == side.left) { //sur le côté gauche de la raquette (donc pour la raquette droite) 
-    return ball.speed.x &gt; 0 &amp;&amp; (ball.x + ball.r + ball.speed.x &gt;= racket.x) &amp;&amp; (ball.y + ball.r &gt;= racket.y) &amp;&amp; (ball.y - ball.r &lt;= racket.y + racket.height);
+    return ball.speed.x > 0 && (ball.x + ball.r + ball.speed.x >= racket.x) && (ball.y + ball.r >= racket.y) && (ball.y - ball.r <= racket.y + racket.height);
   }
 }
 
 function PowerupHitTest(racket, powerup) {
-  if (powerup &amp;&amp; (powerup.y &gt; racket.y) &amp;&amp; (powerup.y &lt; racket.y + racket.height)) {
+  if (powerup && (powerup.y > racket.y) && (powerup.y < racket.y + racket.height)) {
     var previous_height = racket.height;
 
     if (powerup.good) {
@@ -2917,12 +2913,12 @@ function RacketHitTest() {
 }
 
 function BrickHitTest(brick, ball) {
-  if (((ball.y + ball.r &gt;= brick.y) &amp;&amp; (ball.y - ball.r &lt;= brick.y + brick.height) &amp;&amp; (ball.x + ball.r &gt;= brick.x - ball.speed.x) &amp;&amp; (ball.x + ball.r &lt;= brick.x + ball.speed.x) || (ball.y + ball.r &gt;= brick.y) &amp;&amp; (ball.y - ball.r &lt;= brick.y + brick.height) &amp;&amp; (ball.x - ball.r &lt;= brick.x + brick.width - ball.speed.x) &amp;&amp; (ball.x - ball.r &gt;= brick.x + brick.width + ball.speed.x)) &amp;&amp; brick.state != 0) {
+  if (((ball.y + ball.r >= brick.y) && (ball.y - ball.r <= brick.y + brick.height) && (ball.x + ball.r >= brick.x - ball.speed.x) && (ball.x + ball.r <= brick.x + ball.speed.x) || (ball.y + ball.r >= brick.y) && (ball.y - ball.r <= brick.y + brick.height) && (ball.x - ball.r <= brick.x + brick.width - ball.speed.x) && (ball.x - ball.r >= brick.x + brick.width + ball.speed.x)) && brick.state != 0) {
     brick.hit();
     if (!cheat) ball.speed.x *= -1; //on applique la collision seulement si le cheat n'est pas activé
   }
 
-  if (((ball.x + ball.r &gt;= brick.x) &amp;&amp; (ball.x - ball.r &lt;= brick.x + brick.width) &amp;&amp; (ball.y + ball.r &gt;= brick.y - ball.speed.y) &amp;&amp; (ball.y + ball.r &lt;= brick.y + ball.speed.y) || (ball.x + ball.r &gt;= brick.x) &amp;&amp; (ball.x - ball.r &lt;= brick.x + brick.width) &amp;&amp; (ball.y - ball.r &lt;= brick.y + brick.height - ball.speed.y) &amp;&amp; (ball.y - ball.r &gt;= brick.y + brick.height + ball.speed.y)) &amp;&amp; (brick.state != 0)) {
+  if (((ball.x + ball.r >= brick.x) && (ball.x - ball.r <= brick.x + brick.width) && (ball.y + ball.r >= brick.y - ball.speed.y) && (ball.y + ball.r <= brick.y + ball.speed.y) || (ball.x + ball.r >= brick.x) && (ball.x - ball.r <= brick.x + brick.width) && (ball.y - ball.r <= brick.y + brick.height - ball.speed.y) && (ball.y - ball.r >= brick.y + brick.height + ball.speed.y)) && (brick.state != 0)) {
     brick.hit();
     if (!cheat) ball.speed.y *= -1;
   }
@@ -2952,13 +2948,13 @@ function setupPauseMenu() {
   menu_pause_y = (canvas_height - pause_menu_size.height) / 2;
   pause_text_x = (canvas_width - getTextWidth("Pause")) / 2;
 
-  pause_buttons[0] = new Button(size, white_button_colors, "Continue", "black", 38);
+  pause_buttons[0] = new Button(size, white_button_colors, "Reprendre", "black", 38);
   pause_buttons[0].centerHorizontally(340);
   pause_buttons[0].onClick = function() {
     game.status = game_status.RUNNING;
   };
 
-  pause_buttons[1] = new Button(size, white_button_colors, "Restart", "black", 38);
+  pause_buttons[1] = new Button(size, white_button_colors, "Recommencer", "black", 38);
   pause_buttons[1].centerHorizontally(460);
   pause_buttons[1].onClick = function() {
     setupGame();
@@ -2966,7 +2962,7 @@ function setupPauseMenu() {
     game.status = game_status.RUNNING;
   };
 
-  pause_buttons[2] = new Button(size, white_button_colors, "Back to menu", "black", 38);
+  pause_buttons[2] = new Button(size, white_button_colors, "Retour au menu", "black", 38);
   pause_buttons[2].centerHorizontally(580);
   pause_buttons[2].onClick = function() {
     setupMenuListeners();
@@ -2976,13 +2972,13 @@ function setupPauseMenu() {
 
 function setupPauseMenuListeners() {
   onmousedown = function(e) {
-    for (var i = 0; i &lt; pause_buttons.length; i++) {
+    for (var i = 0; i < pause_buttons.length; i++) {
       pause_buttons[i].testAndSetState(mouseX, mouseY, btn_state.DOWN);
     }
   };
 
   onmouseup = function(e) {
-    for (var i = 0; i &lt; pause_buttons.length; i++) {
+    for (var i = 0; i < pause_buttons.length; i++) {
       pause_buttons[i].testAndSetState(mouseX, mouseY, btn_state.UP);
     }
   };
@@ -2995,7 +2991,7 @@ function drawPauseMenu() {
   setFont('Helvetica', 50);
   Texte(pause_text_x, menu_pause_y + 80, "Pause", "white");
 
-  for (var i = 0; i &lt; pause_buttons.length; i++) {
+  for (var i = 0; i < pause_buttons.length; i++) {
     if (pause_buttons[i].state != btn_state.DOWN) {
       pause_buttons[i].testAndSetState(mouseX, mouseY, btn_state.HOVER);
     }
@@ -3013,13 +3009,13 @@ var loser_player;
 
 function setupGameOverListeners() {
   onmousedown = function(e) {
-    for (var i = 0; i &lt; game_over_buttons.length; i++) {
+    for (var i = 0; i < game_over_buttons.length; i++) {
       game_over_buttons[i].testAndSetState(mouseX, mouseY, btn_state.DOWN);
     }
   };
 
   onmouseup = function(e) {
-    for (var i = 0; i &lt; game_over_buttons.length; i++) {
+    for (var i = 0; i < game_over_buttons.length; i++) {
       game_over_buttons[i].testAndSetState(mouseX, mouseY, btn_state.UP);
     }
   };
@@ -3041,7 +3037,7 @@ function setupGameOver() {
   texts[1] = new Text("Score : " + score, 40);
   texts[1].centerHorizontally(300);
 
-  if (!cheated &amp;&amp; !game_config.best_scores.includes(score)) {
+  if (!cheated && !game_config.best_scores.includes(score)) {
     game_config.best_scores.push(score);
     game_config.best_scores.sort(sortNumberDescending);
     game_config.best_scores = game_config.best_scores.slice(0, 5); //garde les 5 premiers scores
@@ -3097,11 +3093,11 @@ function setupGameOver() {
 function drawGameOver() {
   Clear("black");
 
-  for (var i = 0; i &lt; texts.length; i++) {
+  for (var i = 0; i < texts.length; i++) {
     texts[i].draw();
   }
 
-  for (i = 0; i &lt; game_over_buttons.length; i++) {
+  for (i = 0; i < game_over_buttons.length; i++) {
     if (game_over_buttons[i].state != btn_state.DOWN) {
       game_over_buttons[i].testAndSetState(mouseX, mouseY, btn_state.HOVER);
     }
@@ -3177,22 +3173,22 @@ function Ship() {
     this.speed.x *= FRICTION_COEFF;
     this.speed.y *= FRICTION_COEFF;
 
-    if (this.pos.x &gt; canvas_width - this.radius) {
+    if (this.pos.x > canvas_width - this.radius) {
       this.speed.x *= -BOUNCE;
       this.pos.x = canvas_width - this.radius;
     }
 
-    if (this.pos.x &lt; this.radius) {
+    if (this.pos.x < this.radius) {
       this.speed.x *= -BOUNCE;
       this.pos.x = this.radius;
     }
 
-    if (this.pos.y &gt; canvas_height - this.radius) {
+    if (this.pos.y > canvas_height - this.radius) {
       this.speed.y *= -BOUNCE;
       this.pos.y = canvas_height - this.radius;
     }
 
-    if (this.pos.y &lt; this.radius) {
+    if (this.pos.y < this.radius) {
       this.speed.y *= -BOUNCE;
       this.pos.y = this.radius;
     }
@@ -3239,6 +3235,10 @@ function Friend() {
 }
 
 function Enemy() {
+  constructor(health) {
+    this.health = health;
+  }
+  
   this.pos = {
     x: canvas_width / 2,
     y: canvas_height / 2
@@ -3258,8 +3258,7 @@ function Enemy() {
   this.thisMoveTime = 0;
   this.lastMoveTime = (new Date()).getTime();
   this.nextMoveTime = Random(this.minMoveTime, this.maxMoveTime);
-
-  this.health = 100;
+  
   this.radius = 140;
 
   this.hit = function() {
@@ -3267,7 +3266,7 @@ function Enemy() {
 
     in_brick_score += 10;
 
-    if (this.health &lt; 0) {
+    if (this.health < 0) {
       this.health = 0;
     }
   };
@@ -3284,7 +3283,7 @@ function Enemy() {
 
     this.thisMoveTime = (new Date()).getTime();
 
-    if (this.thisMoveTime - this.lastMoveTime &gt; this.nextMoveTime) {
+    if (this.thisMoveTime - this.lastMoveTime > this.nextMoveTime) {
       this.speed = this.getRandomSpeed();
 
       this.nextMoveTime = Random(this.minMoveTime, this.maxMoveTime);
@@ -3294,22 +3293,22 @@ function Enemy() {
     this.pos.x += this.speed.x;
     this.pos.y += this.speed.y;
 
-    if (this.pos.x &lt;= this.radius) {
+    if (this.pos.x <= this.radius) {
       this.speed.x = Random(this.minSpeed, this.maxSpeed);
       this.nextMoveTime = this.maxMoveTime * 2;
     }
 
-    if (this.pos.x &gt;= canvas_width - this.radius) {
+    if (this.pos.x >= canvas_width - this.radius) {
       this.speed.x = -Random(this.minSpeed, this.maxSpeed);
       this.nextMoveTime = this.maxMoveTime * 2;
     }
 
-    if (this.pos.y &lt;= this.radius) {
+    if (this.pos.y <= this.radius) {
       this.speed.y = Random(this.minSpeed, this.maxSpeed);
       this.nextMoveTime = this.maxMoveTime * 2;
     }
 
-    if (this.pos.y &gt;= canvas_height - this.radius) {
+    if (this.pos.y >= canvas_height - this.radius) {
       this.speed.y = -Random(this.minSpeed, this.maxSpeed);
       this.nextMoveTime = this.maxMoveTime * 2;
     }
@@ -3380,7 +3379,7 @@ function setupInBrick() {
 
   in_brick_stage = in_brick_stages.OPEN_TRANSITION;
 
-  //si le tableau de snapshots a été fait pour la même brique que maintenant, on refait la même transition sans la calculer -&gt; optimisation
+  //si le tableau de snapshots a été fait pour la même brique que maintenant, on refait la même transition sans la calculer -> optimisation
   if (snapshot_brick == special_brick) {
     useSnapshot = true;
   } else {
@@ -3407,7 +3406,13 @@ function setupInBrick() {
   bullets = [];
 
   friend = new Friend();
-  enemy = new Enemy();
+  var health = 100;
+  
+  if (enemy) {
+    health = enemy.health;
+  }
+  
+  enemy = new Enemy(health);
 
   lastShotTime = (new Date()).getTime();
 }
@@ -3429,29 +3434,29 @@ function drawInBrickScore() {
 
 function drawHealthBar() {
   Rectangle((canvas_width - health_bar_size.width) / 2, 50, health_bar_size.width, health_bar_size.height, "white");
-  RectanglePlein((canvas_width - health_bar_size.width) / 2 + health_bar_margin, 50 + health_bar_margin, (enemy.health / 100) * (health_bar_size.width - 2 * health_bar_margin), health_bar_size.height - 2 * health_bar_margin, enemy.health &lt; 20 ? "red" : "white");
+  RectanglePlein((canvas_width - health_bar_size.width) / 2 + health_bar_margin, 50 + health_bar_margin, (enemy.health / 100) * (health_bar_size.width - 2 * health_bar_margin), health_bar_size.height - 2 * health_bar_margin, enemy.health < 20 ? "red" : "white");
   setFont('Helvetica', 40);
   Texte(730, 95, "Vie", "white");
 }
 
 function isBulletOffscreen(b) {
-  return (b.x &gt; canvas_width) || (b.x &lt; 0) || (b.y &gt; canvas_height) || (b.y &lt; 0);
+  return (b.x > canvas_width) || (b.x < 0) || (b.y > canvas_height) || (b.y < 0);
 }
 
 function isEnemyShot(b) {
-  return getDist(b.pos, enemy.pos) &lt; enemy.radius;
+  return getDist(b.pos, enemy.pos) < enemy.radius;
 }
 
 function isShipCollidingEnemy() {
-  return getDist(ship.pos, enemy.pos) - ship.radius &lt; enemy.radius;
+  return getDist(ship.pos, enemy.pos) - ship.radius < enemy.radius;
 }
 
 function isFriendCollidingEnemy() {
-  return getDist(friend.pos, enemy.pos) + friend.radius &gt;= enemy.radius;
+  return getDist(friend.pos, enemy.pos) + friend.radius >= enemy.radius;
 }
 
 function updateBullets() {
-  for (var i = bullets.length - 1; i &gt;= 0; i--) {
+  for (var i = bullets.length - 1; i >= 0; i--) {
     bullets[i].pos.x += bullets[i].speed * Math.cos(bullets[i].angle);
     bullets[i].pos.y += bullets[i].speed * Math.sin(bullets[i].angle);
 
@@ -3484,7 +3489,7 @@ function HandleInBrickKeyboard() {
   if (map[keys.Space]) {
     thisShotTime = (new Date()).getTime();
 
-    if (thisShotTime - lastShotTime &gt; 500) { //on limite les tirs à toutes les 500 millisecondes, pour empêcher le spam
+    if (thisShotTime - lastShotTime > 500) { //on limite les tirs à toutes les 500 millisecondes, pour empêcher le spam
       var p = getPointFromCircle(ship.pos, ship.radius, ship.rotation);
 
       bullets.push({
@@ -3515,28 +3520,28 @@ function HandleInBrickKeyboard() {
 }
 
 function createAndDoTransition() {
-  if (i &gt;= canvas_width &amp;&amp; background_center.x == canvas_width / 2 &amp;&amp; background_center.y == canvas_height / 2) {
+  if (i >= canvas_width && background_center.x == canvas_width / 2 && background_center.y == canvas_height / 2) {
     //quand on a atteint le centre de l'écran, on passe à l'étape suivante
     in_brick_stage = in_brick_stages.INSTRUCTIONS;
     return;
   }
 
   //i correspond au rayon du cercle quand il est inférieur à canvas_height, et à la largeur de l'ellipse quand il est supérieur ou égal à canvas_height (la hauteur de l'ellipse étant alors canvas_height)
-  if (i &lt; canvas_width) {
+  if (i < canvas_width) {
     i += vi;
     vi += vi * 0.1; //accélération de l'incrémentation de i
   }
 
   //vcx et vcy s'occupent de ramener le centre du cercle (ou ellipse) au centre de l'écran
-  if (original_center.x &lt; canvas_width / 2) {
-    if (background_center.x &lt; canvas_width / 2) {
+  if (original_center.x < canvas_width / 2) {
+    if (background_center.x < canvas_width / 2) {
       vcx += vcx * ccx;
       background_center.x += vcx;
     } else {
       background_center.x = canvas_width / 2;
     }
   } else {
-    if (background_center.x &gt; canvas_width / 2) {
+    if (background_center.x > canvas_width / 2) {
       vcx += vcx * ccx;
       background_center.x -= vcx;
     } else {
@@ -3544,15 +3549,15 @@ function createAndDoTransition() {
     }
   }
 
-  if (original_center.y &lt; canvas_height / 2) {
-    if (background_center.y &lt; canvas_height / 2) {
+  if (original_center.y < canvas_height / 2) {
+    if (background_center.y < canvas_height / 2) {
       vcy += vcy * ccy;
       background_center.y += vcy;
     } else {
       background_center.y = canvas_height / 2;
     }
   } else {
-    if (background_center.y &gt; canvas_height / 2) {
+    if (background_center.y > canvas_height / 2) {
       vcy += vcy * ccy;
       background_center.y -= vcy;
     } else {
@@ -3652,7 +3657,7 @@ function drawInBrickInstructionsOrCountdown() {
   Texte(friend.pos.x + 200, friend.pos.y + 180, "- O pour monter\n- K pour aller à gauche\n- L pour descendre\n- M pour aller à droite\n\nSuivez les déplacements du cercle pour\nne pas toucher ses parois !", "white");
 }
 
-dmgToEnemy = 5;
+dmgToEnemy = 10;
 
 function drawInBrick() {
   if (in_brick_stage == in_brick_stages.OPEN_TRANSITION) {
@@ -3698,7 +3703,7 @@ function drawInBrick() {
   if (in_brick_stage == in_brick_stages.INSTRUCTIONS || in_brick_stage == in_brick_stages.COUNTDOWN) {
     drawInBrickInstructionsOrCountdown();
 
-    if (in_brick_stage == in_brick_stages.INSTRUCTIONS &amp;&amp; map[keys.Space]) { //test d'appui sur espace si on est dans les instructions (et pas déjà en compte à rebours)
+    if (in_brick_stage == in_brick_stages.INSTRUCTIONS && map[keys.Space]) { //test d'appui sur espace si on est dans les instructions (et pas déjà en compte à rebours)
       start_in_brick_text = new Text("3", 60);
       start_in_brick_text.centerHorizontally(240);
 
@@ -3739,8 +3744,8 @@ function sortLevels(a, b) {
   var int_b = enEntier(b);
 
   //on veut faire remonter tous les noms de fichiers autres que des chiffres et les classer par ordre alphabétique. Sinon on classe les chiffres dans l'ordre numérique
-  if (isNaN(int_a) &amp;&amp; isNaN(int_b)) { //comparaison entre 2 strings
-    return a &gt; b;
+  if (isNaN(int_a) && isNaN(int_b)) { //comparaison entre 2 strings
+    return a > b;
   }
 
   if (isNaN(int_a)) { //comparaison entre une string et un nombre : on met a avant b avec -1
@@ -3795,13 +3800,13 @@ function getPreviousFullItemIndex(value, fullItemSize) {
 }
 
 function constrain(value, min, max) {
-  if (value &lt; min) return min;
-  if (value &gt; max) return max;
+  if (value < min) return min;
+  if (value > max) return max;
   return value;
 }
 
 function isPointInRect(x, y, rect_x, rect_y, rect_width, rect_height) {
-  return (x &gt;= rect_x) &amp;&amp; (x &lt;= rect_x + rect_width) &amp;&amp; (y &gt;= rect_y) &amp;&amp; (y &lt;= rect_y + rect_height);
+  return (x >= rect_x) && (x <= rect_x + rect_width) && (y >= rect_y) && (y <= rect_y + rect_height);
 }
 
 function rad(d) {
@@ -3883,7 +3888,7 @@ onkeyup = function(e) {
 var cheat, cheated; //cheat indique si on est actuellement en train de tricher, cheated indique si on a triché pendant la partie (cheat revient à false quand on a terminé le mini-jeu en trichant)
 
 function activateKonami() {
-  if (game.status == game_status.RUNNING &amp;&amp; (game.stage == game_stage.GAME || game.stage == game_stage.IN_BRICK)) {
+  if (game.status == game_status.RUNNING && (game.stage == game_stage.GAME || game.stage == game_stage.IN_BRICK)) {
     cheat = true;
     cheated = true;
     background_color = rgb(96, 125, 139);
@@ -3905,7 +3910,7 @@ var pauseEnabled = true;
 //on gère la pause ici
 
 function Keypressed(e) {
-  if (e == keys.P &amp;&amp; pauseEnabled &amp;&amp; (game.stage == game_stage.GAME || game.stage == game_stage.IN_BRICK)) {
+  if (e == keys.P && pauseEnabled && (game.stage == game_stage.GAME || game.stage == game_stage.IN_BRICK)) {
     if (game.status == game_status.PAUSED) {
       resetButtonListeners();
       game.status = game_status.RUNNING;
@@ -3920,7 +3925,7 @@ function Keypressed(e) {
 
 Cette fonction a été trouvée ici : https://stackoverflow.com/a/17243070 
 
-HSB &lt;=&gt; Hue Saturation Brightness
+HSB <=> Hue Saturation Brightness
 La fonction prend comme argument h, s et bness, tous compris entre 0 et 1.
 Et retourne une couleur RGB. */
 
@@ -3991,12 +3996,12 @@ var heart_flare = [
 var heart_scale = 25;
 
 function scaleHeart() {
-  for (var i = 0; i &lt; heart_points.length; i++) {
+  for (var i = 0; i < heart_points.length; i++) {
     heart_points[i][0] *= heart_scale;
     heart_points[i][1] *= heart_scale;
   }
   
-  for (i = 0; i &lt; heart_flare.length; i++) {
+  for (i = 0; i < heart_flare.length; i++) {
     heart_flare[i][0] *= heart_scale;
     heart_flare[i][1] *= heart_scale;
   }
@@ -4040,7 +4045,7 @@ var white_button_colors = [HSBtoRGB(0, 0, 1), HSBtoRGB(0, 0, 0.8), HSBtoRGB(0, 0
 
 /* Correction curseur main pour Chrome */
 
-var isChrome = !! (window.chrome) &amp;&amp; !! (window.chrome.webstore); //expression booléenne trouvée ici : https://stackoverflow.com/a/9851769
+var isChrome = !! (window.chrome) && !! (window.chrome.webstore); //expression booléenne trouvée ici : https://stackoverflow.com/a/9851769
 var cursor_grab = "grab";
 var cursor_grabbing = "grabbing";
 
@@ -4118,7 +4123,7 @@ function loadLevel() {
   current_level_config = createLevelOne();
 }
 
-//il peut y avoir combinaison d'un statut et d'une étape, par exemple : GAME &amp; RUNNING, ou IN_BRICK &amp; PAUSED
+//il peut y avoir combinaison d'un statut et d'une étape, par exemple : GAME & RUNNING, ou IN_BRICK & PAUSED
 //statuts possibles pour les jeux
 var game_status = {
   RUNNING: 0,
@@ -4146,7 +4151,7 @@ var game = {
   stage: game_stage.GAME
 };*/
 
-debug_in_brick = -1; //donner une valeur &gt; -1 pour forcer une brique spéciale
+debug_in_brick = -1; //donner une valeur > -1 pour forcer une brique spéciale
 var canvas_width, canvas_height;
 
 FrameRate = 60;
@@ -4272,4 +4277,5 @@ function draw() {
 
     break;
   }
-}</textarea><div id="blockeditor" style="transition: transform 1s ease; transform-origin: right bottom 0px; position: absolute; border: 1px solid black; top: 30px; left: 0px; width: 1920px; height: 941px; background-color: white; overflow: hidden; visibility: hidden; z-index: 10000;"></div></body></html>
+}
+</textarea><div id="blockeditor" style="transition: transform 1s ease; transform-origin: right bottom 0px; position: absolute; border: 1px solid black; top: 30px; left: 0px; width: 1920px; height: 941px; background-color: white; overflow: hidden; visibility: hidden; z-index: 10000;"></div></body></html>
