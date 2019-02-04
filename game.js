@@ -1,10 +1,3 @@
-/*
-Erwan Foessel
-Pierre-Louis Chan
-Corentin Girard
-*/
-
-
 /* ---------------------------------- [ GESTION DES FICHIERS ] --------------------------------------- */
 
 
@@ -2425,6 +2418,10 @@ function Friend() {
 }
 
 function Enemy() {
+  constructor(health) {
+    this.health = health;
+  }
+  
   this.pos = {
     x: canvas_width / 2,
     y: canvas_height / 2
@@ -2444,8 +2441,7 @@ function Enemy() {
   this.thisMoveTime = 0;
   this.lastMoveTime = (new Date()).getTime();
   this.nextMoveTime = Random(this.minMoveTime, this.maxMoveTime);
-
-  this.health = 100;
+  
   this.radius = 140;
 
   this.hit = function() {
@@ -2593,7 +2589,13 @@ function setupInBrick() {
   bullets = [];
 
   friend = new Friend();
-  enemy = new Enemy();
+  var health = 100;
+  
+  if (enemy) {
+    health = enemy.health;
+  }
+  
+  enemy = new Enemy(health);
 
   lastShotTime = (new Date()).getTime();
 }
@@ -2838,7 +2840,7 @@ function drawInBrickInstructionsOrCountdown() {
   Texte(friend.pos.x + 200, friend.pos.y + 180, "- O pour monter\n- K pour aller à gauche\n- L pour descendre\n- M pour aller à droite\n\nSuivez les déplacements du cercle pour\nne pas toucher ses parois !", "white");
 }
 
-dmgToEnemy = 5;
+dmgToEnemy = 10;
 
 function drawInBrick() {
   if (in_brick_stage == in_brick_stages.OPEN_TRANSITION) {
