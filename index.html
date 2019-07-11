@@ -3126,7 +3126,7 @@ function Spritesheet(sheet_img, frame_count, start) {
   this.drawFrame = function(i) {
     ctx.drawImage(sheet_img, i * this.frameWidth, 0, this.frameWidth, this.frameHeight, -this.frameWidth / 2, -this.frameHeight / 2, this.frameWidth, this.frameHeight);
   };
-  
+
   this.draw = function() {
     this.drawFrame(this.currFrame + start);
   };
@@ -3207,7 +3207,7 @@ function Ship() {
 
       addInterval('ship', function() {
         ship_boost_spritesheet.nextSprite();
-      }, 100);      
+      }, 100);
     } else if (!this.isBoosting) {
       ship_boost_spritesheet.drawFrame(0);
       removeInterval('ship');
@@ -3235,10 +3235,11 @@ function Friend() {
 }
 
 function Enemy() {
-  constructor(health) {
+
+  this.setHealth = function(health) {
     this.health = health;
-  }
-  
+  };
+
   this.pos = {
     x: canvas_width / 2,
     y: canvas_height / 2
@@ -3258,7 +3259,7 @@ function Enemy() {
   this.thisMoveTime = 0;
   this.lastMoveTime = (new Date()).getTime();
   this.nextMoveTime = Random(this.minMoveTime, this.maxMoveTime);
-  
+
   this.radius = 140;
 
   this.hit = function() {
@@ -3313,15 +3314,15 @@ function Enemy() {
       this.nextMoveTime = this.maxMoveTime * 2;
     }
   };
-  
+
   var rotation = 0;
   var i = 0;
-  
+
   addInterval('enemy', function() {
     rotation = Math.cos(i);
     i = (i + 1) % 4;
   }, 100);
-  
+
   this.draw = function() {
     ctx.save();
 
@@ -3372,7 +3373,6 @@ function setupInBrick() {
   background_color = "black";
 
   ship_boost_spritesheet = new Spritesheet(img_spaceship, 5, 1); //il y a 5 images dans le spritesheet : la première (index 0) pour au repos et les suivantes pour l'animation du boost
-
   start_in_brick_text = new Text("Appuyez sur ESPACE pour commencer...", 40);
   start_in_brick_text.centerHorizontally(240);
   start_in_brick_text.enableTwinkle();
@@ -3407,12 +3407,13 @@ function setupInBrick() {
 
   friend = new Friend();
   var health = 100;
-  
+
   if (enemy) {
     health = enemy.health;
   }
-  
-  enemy = new Enemy(health);
+
+  enemy = new Enemy();
+  enemy.setHealth(health);
 
   lastShotTime = (new Date()).getTime();
 }
@@ -4000,7 +4001,7 @@ function scaleHeart() {
     heart_points[i][0] *= heart_scale;
     heart_points[i][1] *= heart_scale;
   }
-  
+
   for (i = 0; i < heart_flare.length; i++) {
     heart_flare[i][0] *= heart_scale;
     heart_flare[i][1] *= heart_scale;
@@ -4174,12 +4175,11 @@ function setup() {
   Viewport(0, 0, canvas_width, canvas_height, 1);
 
   //on initialise l'objet contenant tous les id des setInterval()
-  if (!intervals)
-    intervals = {};
-  
+  if (!intervals) intervals = {};
+
   //si certains setInterval() tournent encore, on les reset tous
   removeAllIntervals();
-  
+
   //on initialise les coeurs et les listeners
   scaleHeart();
   resetButtonListeners();
